@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Sou um component vue JS =D</h1>
+        <h1>Sou um component vue JS =S =D</h1>
     </div>    
 </template>
 

@@ -37080,7 +37080,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("Sou um component vue JS =D")])])
+    return _c("div", [_c("h1", [_vm._v("Sou um component vue JS =S =D")])])
   }
 ]
 render._withStripped = true
@@ -53183,8 +53183,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/laravel-web-service/resources/assets/js/app.js */"./resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/laravel-web-service/resources/assets/sass/app.scss */"./resources/assets/sass/app.scss");
+__webpack_require__(/*! C:\Docker\laravel-web-service\resources\assets\js\app.js */"./resources/assets/js/app.js");
+module.exports = __webpack_require__(/*! C:\Docker\laravel-web-service\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
 
 
 /***/ })
