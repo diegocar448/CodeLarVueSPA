@@ -1,16 +1,17 @@
 <template>
     <div>
-        <h1>Sou um component vue JS =S =D</h1>
-    </div>    
+        Listagem das categorias
+    </div>
 </template>
-
 
 <script>
 export default {
     
+
 }
 </script>
 
 <style scoped>
-    
+
 </style>
+

@@ -10,8 +10,10 @@ import store from './vuex/store'
  * 
  */
 
- Vue.component('test-component', require('./components/TestComponent').default)
+ Vue.component('app-component', require('./components/App').default)
 
+//Vue.component('categories-component', require('./components/admin/pages/categories/CategoriesComponent').default)
+//Vue.component('test-component', require('./components/TestComponent').default)
 //Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 const app = new Vue({
