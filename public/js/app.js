@@ -54278,11 +54278,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   actions: {
     loadCategories: function loadCategories(context) {
+      context.commit('PRELOADER', true);
       axios.get('/api/v1/categories').then(function (response) {
         console.log(response);
         context.commit('LOAD_CATEGORIES', response);
       })["catch"](function (error) {
         console.log(errors);
+      })["finally"](function () {
+        return context.commit('PRELOADER', false);
       });
     }
   },
