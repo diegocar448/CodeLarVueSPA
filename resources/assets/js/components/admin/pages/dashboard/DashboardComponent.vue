@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-view></router-view>
+        home page do dashboard
     </div>
 </template>
 
