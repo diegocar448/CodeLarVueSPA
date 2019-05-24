@@ -1955,6 +1955,7 @@ __webpack_require__.r(__webpack_exports__);
       type: Object | Array,
       "default": function _default() {
         return {
+          id: '',
           name: ''
         };
       }
@@ -54863,6 +54864,17 @@ __webpack_require__.r(__webpack_exports__);
       context.commit('PRELOADER', true);
       return new Promise(function (resolve, reject) {
         axios.post('/api/v1/categories', params).then(function (response) {
+          return resolve();
+        })["catch"](function (error) {
+          return reject(error);
+        })["finally"](function () {
+          return context.commit('PRELOADER', false);
+        });
+      });
+    },
+    updateCategory: function updateCategory(context, params) {
+      return new Promise(function (resolve, reject) {
+        axios.put("/api/v1/categories/".concat(params.id), params).then(function (response) {
           return resolve();
         })["catch"](function (error) {
           return reject(error);
