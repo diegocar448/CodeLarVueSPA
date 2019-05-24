@@ -3,18 +3,17 @@
         <h1>Editar Categoria</h1>
 
 
-        <form class="form" action="" @submit.prevent="submitForm">
-            <div class="form-group">
-                <input type="'text'" v-model="category.name" class="form-control" name="name" placeholder="Nome de Categoria">
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Criar</button>
-            </div>
-        </form>
+        <form-cat 
+            :category="category"
+            :updating="true"
+            >
+        </form-cat>
     </div>
 </template>
 
 <script>
+import FormCategoryComponent from './partials/FormCategoryComponent'
+
 export default {
     props:{
         id:{
@@ -28,14 +27,15 @@ export default {
                         console.log(error)
                     })
     },
-
     data(){
         return {
-            category:{
-                name:''
-            }
+            category:{}
         }
+    },
+    components:{
+        formCat: FormCategoryComponent
     }
+    
          
 }
 </script>
