@@ -8,7 +8,11 @@ export default {
     mutations:{
         LOAD_CATEGORIES(state, categories){
             state.items = categories
+        },
+        LOAD_CATEGORY(state, category){
+            state.items = category
         }
+        
     },
     actions:{
         loadCategories(context){
@@ -24,6 +28,24 @@ export default {
                     console.log(errors)
                 })
                 .finally(() => context.commit('PRELOADER', false))
+        },
+
+        loadCategory(context, id){
+            context.commit('PRELOADER', true)
+
+            return new Promise((resolve, reject) => {
+
+                axios.get(`/api/v1/categories/${id}`)
+                //.then(response => resolve(response.data))
+                .then(response => {
+                    resolve(response.data)
+                    context.commit('LOAD_CATEGORY', response)
+                })
+                .catch(error => reject(error))
+                .finally(() => context.commit('PRELOADER', false))
+                
+            })
+
         },
 
 

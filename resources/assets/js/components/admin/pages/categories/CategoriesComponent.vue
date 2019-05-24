@@ -18,7 +18,9 @@
                 <tr v-for="(category, index) in categories.data" :key="index">
                     <td>{{ category.id }}</td>
                     <td>{{ category.name }}</td>
-                    <td>#</td>
+                    <td>
+                        <router-link :to="{name:'admin.categories.edit', params: {id: category.id}}" class="btn btn-primary">Editar Categoria</router-link>
+                    </td>
                 </tr>
             </tbody>
         </table>
