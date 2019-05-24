@@ -5,7 +5,7 @@
                 <input type="'text'" v-model="category.name" class="form-control" name="name" placeholder="Nome de Categoria">
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Criar</button>
+                <button type="submit" class="btn btn-primary">Enviar</button>
             </div>
         </form>
     </div>
