@@ -6,29 +6,36 @@
         <table class="table table-dark">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Categoria</th>
-                    <th>Nome</th>
-                    <th>Descrição</th>
                     <th>Imagem</th>
-                    <th>Ações</th>
-                 
+                    <th>Nome</th>
+                    <th>ID</th>           
+                    <th>Descrição</th>
+                    <th>Ações</th>                 
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(product, index) in products.data" :key="index">
-                    <td>{{ product.id}}</td>
-                    <td>{{ product.category_id}}</td>
-                    <td>{{ product.name}}</td>
-                    <td>{{ product.description}}</td>
                     <td>{{ product.image}}</td>
-                
-                    <td>
-                        
-                    </td>
+                    <td>{{ product.name}}</td>
+                    <td>{{ product.id}}</td>               
+                    <td>{{ product.description}}</td>                
+                    <td></td>
                 </tr>
             </tbody>
         </table>
+
+        <ul v-if="products.last_page > 1">
+            <li v-if="products.current_page > 1">
+                <a class="btn btn-primary" @click.prevent="loadProducts(products.current_page - 1)">
+                    Anterior
+                </a>
+            </li>
+            <li v-if="products.current_page < products.last_page">
+                <a class="btn btn-primary" @click.prevent="loadProducts(products.current_page + 1)">
+                    Próxima
+                </a>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -38,7 +45,7 @@ import axios from 'axios'
 
 export default {
     created(){
-        this.loadProducts()
+        this.loadProducts(1)
     },
     data(){
         return{
@@ -48,11 +55,16 @@ export default {
     computed:{
         products(){
             return this.$store.state.products.items
+        },
+        params(){
+            return{
+                page: this.products.current_page
+            }
         }
     },
     methods:{
-        loadProducts(){
-            this.$store.dispatch('loadProducts')
+        loadProducts(page){
+            this.$store.dispatch('loadProducts', {...this.params, page})
         },       
           
     },

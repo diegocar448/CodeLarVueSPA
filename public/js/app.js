@@ -2132,6 +2132,17 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2169,7 +2180,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
-    this.loadProducts();
+    this.loadProducts(1);
   },
   data: function data() {
     return {
@@ -2179,11 +2190,18 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     products: function products() {
       return this.$store.state.products.items;
+    },
+    params: function params() {
+      return {
+        page: this.products.current_page
+      };
     }
   },
   methods: {
-    loadProducts: function loadProducts() {
-      this.$store.dispatch('loadProducts');
+    loadProducts: function loadProducts(page) {
+      this.$store.dispatch('loadProducts', _objectSpread({}, this.params, {
+        page: page
+      }));
     }
   }
 });
@@ -38651,22 +38669,60 @@ var render = function() {
         "tbody",
         _vm._l(_vm.products.data, function(product, index) {
           return _c("tr", { key: index }, [
-            _c("td", [_vm._v(_vm._s(product.id))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(product.category_id))]),
+            _c("td", [_vm._v(_vm._s(product.image))]),
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(product.name))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(product.description))]),
+            _c("td", [_vm._v(_vm._s(product.id))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(product.image))]),
+            _c("td", [_vm._v(_vm._s(product.description))]),
             _vm._v(" "),
             _c("td")
           ])
         }),
         0
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _vm.products.last_page > 1
+      ? _c("ul", [
+          _vm.products.current_page > 1
+            ? _c("li", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.loadProducts(_vm.products.current_page - 1)
+                      }
+                    }
+                  },
+                  [_vm._v("\n                Anterior\n            ")]
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.products.current_page < _vm.products.last_page
+            ? _c("li", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.loadProducts(_vm.products.current_page + 1)
+                      }
+                    }
+                  },
+                  [_vm._v("\n                Próxima\n            ")]
+                )
+              ])
+            : _vm._e()
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
@@ -38676,15 +38732,13 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("ID")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Categoria")]),
+        _c("th", [_vm._v("Imagem")]),
         _vm._v(" "),
         _c("th", [_vm._v("Nome")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Descrição")]),
+        _c("th", [_vm._v("ID")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Imagem")]),
+        _c("th", [_vm._v("Descrição")]),
         _vm._v(" "),
         _c("th", [_vm._v("Ações")])
       ])
@@ -56986,9 +57040,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var RESOURCE = 'products';
 /* harmony default export */ __webpack_exports__["default"] = ({
-  loadProducts: function loadProducts(context) {
+  loadProducts: function loadProducts(context, params) {
     context.commit('PRELOADER', true);
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(_config_configs__WEBPACK_IMPORTED_MODULE_1__["URL_BASE"]).concat(RESOURCE)).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(_config_configs__WEBPACK_IMPORTED_MODULE_1__["URL_BASE"]).concat(RESOURCE), {
+      params: params
+    }).then(function (response) {
       console.log(response);
       context.commit('LOAD_PRODUCTS', response.data);
     })["catch"](function (error) {
