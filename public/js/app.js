@@ -1876,17 +1876,34 @@ __webpack_require__.r(__webpack_exports__);
     loadCategories: function loadCategories() {
       this.$store.dispatch('loadCategories');
     },
-    destroy: function destroy(category) {
+    confirmDestroy: function confirmDestroy(category) {
       var _this = this;
 
-      this.$store.dispatch('destroyCategory', category.id).then(function () {
-        _this.$snotify.success("Sucesso ao deletar a categoria ".concat(category.name));
+      this.$snotify.error("Deseha realmente deletar a categoria ".concat(category.name), 'Deletar?', {
+        timeout: 10000,
+        showProgressBar: true,
+        closeOnClick: true,
+        buttons: [{
+          text: 'Não'
+        }, {
+          text: 'Sim',
+          action: function action() {
+            return _this.destroy(category);
+          }
+        }]
+      });
+    },
+    destroy: function destroy(category) {
+      var _this2 = this;
 
-        _this.loadCategories();
+      this.$store.dispatch('destroyCategory', category.id).then(function () {
+        _this2.$snotify.success("Sucesso ao deletar a categoria ".concat(category.name));
+
+        _this2.loadCategories();
       })["catch"](function (error) {
         console.log(erro);
 
-        _this.$snotify.error('Erro ao deletar a categoria', 'Erro');
+        _this2.$snotify.error('Erro ao deletar a categoria', 'Erro');
       });
     }
   }
@@ -38202,7 +38219,7 @@ var render = function() {
                       on: {
                         click: function($event) {
                           $event.preventDefault()
-                          return _vm.destroy(category)
+                          return _vm.confirmDestroy(category)
                         }
                       }
                     },

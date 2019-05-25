@@ -20,7 +20,7 @@
                     <td>{{ category.name }}</td>
                     <td>
                         <router-link :to="{name:'admin.categories.edit', params: {id: category.id}}" class="btn btn-primary">Editar Categoria</router-link>
-                        <a href="#" @click.prevent="destroy(category)" class="btn btn-danger">Remover</a>
+                        <a href="#" @click.prevent="confirmDestroy(category)" class="btn btn-danger">Remover</a>
                     </td>
                 </tr>
             </tbody>
@@ -44,6 +44,17 @@ export default {
         loadCategories(){
             this.$store.dispatch('loadCategories')
         },
+        confirmDestroy(category){
+            this.$snotify.error(`Deseha realmente deletar a categoria ${category.name}`, 'Deletar?', {
+                timeout: 10000,
+                showProgressBar: true,                
+                closeOnClick: true,
+                buttons:[
+                    {text: 'Não'},
+                    {text: 'Sim', action: () => this.destroy(category)}
+                ],                
+            })
+        },
         destroy(category){
            this.$store.dispatch('destroyCategory', category.id) 
                     .then( () => {
@@ -58,7 +69,7 @@ export default {
 
                         
                     })
-        }
+        }    
     }
 
 }
