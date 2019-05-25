@@ -2,9 +2,17 @@
     <div>
         <h1>Listagem de Categorias</h1>
 
+        <div class="row">
+            <div class="col">
+                <router-link class="btn btn-success" :to="{name:'admin.categories.create'}">Adicionar Nova Categoria</router-link>
+            </div>
+            <div class="col">
+                <search @searchCategory="search"></search>
+            </div>
+        </div>
         
 
-        <router-link class="btn btn-success" :to="{name:'admin.categories.create'}">Adicionar Nova Categoria</router-link>
+        
 
         <table class="table table-dark">
             <thead>
@@ -30,10 +38,16 @@
 
 <script>
 import axios from 'axios'
+import SearchCategoryComponent from './partials/SearchCategoryComponent'
 
 export default {
     created(){
         this.loadCategories()
+    },
+    data(){
+        return{
+            name: '',
+        }
     },
     computed:{
         categories(){
@@ -42,7 +56,7 @@ export default {
     },
     methods:{
         loadCategories(){
-            this.$store.dispatch('loadCategories')
+            this.$store.dispatch('loadCategories', {name: this.name})
         },
         confirmDestroy(category){
             this.$snotify.error(`Deseha realmente deletar a categoria ${category.name}`, 'Deletar?', {
@@ -51,7 +65,7 @@ export default {
                 closeOnClick: true,
                 buttons:[
                     {text: 'Não'},
-                    {text: 'Sim', action: () => this.destroy(category)}
+                    {text: 'Sim', action: () =>  this.destroy(category)}
                 ],                
             })
         },
@@ -69,7 +83,15 @@ export default {
 
                         
                     })
+        },
+        search(filter){
+            this.name = filter
+
+            this.loadCategories()
         }    
+    },
+    components:{
+        search: SearchCategoryComponent
     }
 
 }

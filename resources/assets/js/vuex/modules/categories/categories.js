@@ -15,10 +15,10 @@ export default {
         
     },
     actions:{
-        loadCategories(context){
+        loadCategories(context, params){
             context.commit('PRELOADER', true)
             
-            axios.get('/api/v1/categories')
+            axios.get('/api/v1/categories', {params})
                 .then(response => {
                     console.log(response)
 
