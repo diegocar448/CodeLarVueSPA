@@ -43,8 +43,14 @@ export default {
             const action = this.updating ? 'updateCategory' : 'storeCategory'
             
             this.$store.dispatch(action, this.category)
-                        .then(() => this.$router.push({name: 'admin.categories'}))
-                        .catch(error =>{                            
+                        .then(() => {
+                            this.$snotify.success('Successo ao cadastrar')
+
+                            this.$router.push({name: 'admin.categories'})
+                        })
+                        .catch(error =>{  
+                            this.$snotify.error('Algo Errado', 'Erro')
+                            
                             console.log(error.response.data.errors)
                             this.errors = error.response.data.errors
                         })

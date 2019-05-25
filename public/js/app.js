@@ -1906,18 +1906,27 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    var _this = this;
-
-    return this.$store.dispatch('loadCategory', this.id).then(function (response) {
-      return _this.category = response;
-    })["catch"](function (error) {
-      console.log(error);
-    });
+    this.loadCategory();
   },
   data: function data() {
     return {
       category: {}
     };
+  },
+  methods: {
+    loadCategory: function loadCategory() {
+      var _this = this;
+
+      return this.$store.dispatch('loadCategory', this.id).then(function (response) {
+        return _this.category = response;
+      })["catch"](function (error) {
+        _this.$snotify.error('Categoria não encontrada', '404');
+
+        _this.$router.push({
+          name: 'admin.categories'
+        });
+      });
+    }
   },
   components: {
     formCat: _partials_FormCategoryComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -1978,10 +1987,14 @@ __webpack_require__.r(__webpack_exports__);
 
       var action = this.updating ? 'updateCategory' : 'storeCategory';
       this.$store.dispatch(action, this.category).then(function () {
-        return _this.$router.push({
+        _this.$snotify.success('Successo ao cadastrar');
+
+        _this.$router.push({
           name: 'admin.categories'
         });
       })["catch"](function (error) {
+        _this.$snotify.error('Algo Errado', 'Erro');
+
         console.log(error.response.data.errors);
         _this.errors = error.response.data.errors;
       });

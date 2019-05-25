@@ -21,15 +21,22 @@ export default {
         }
     },
     created(){
-        return this.$store.dispatch('loadCategory', this.id)
-                    .then(response => this.category = response)
-                    .catch(error => {
-                        console.log(error)
-                    })
+        this.loadCategory()
     },
     data(){
         return {
             category:{}
+        }
+    },
+    methods:{
+        loadCategory(){
+            return this.$store.dispatch('loadCategory', this.id)
+                            .then(response => this.category = response)
+                            .catch(error => {
+                                this.$snotify.error('Categoria não encontrada', '404')
+
+                                this.$router.push({name: 'admin.categories'})
+                            })
         }
     },
     components:{
