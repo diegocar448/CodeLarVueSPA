@@ -24,34 +24,23 @@
             </tbody>
         </table>
 
-        <ul v-if="products.last_page > 1">
-            <li v-if="products.current_page > 1">
-                <a class="btn btn-primary" @click.prevent="loadProducts(products.current_page - 1)">
-                    Anterior
-                </a>
-            </li>
-            <li v-if="products.current_page < products.last_page">
-                <a class="btn btn-primary" @click.prevent="loadProducts(products.current_page + 1)">
-                    Próxima
-                </a>
-            </li>
-        </ul>
+        <pagination
+            :pagination="products"
+            :offset="6"
+            @paginate="loadProducts">
+        </pagination>        
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import PaginationComponent from '../../../layouts/PaginationComponent'
 
 
 export default {
     created(){
         this.loadProducts(1)
-    },
-    data(){
-        return{
-            name: '',
-        }
-    },
+    },    
     computed:{
         products(){
             return this.$store.state.products.items
@@ -68,6 +57,9 @@ export default {
         },       
           
     },
+    components:{
+        pagination: PaginationComponent
+    }
     
     
 }
