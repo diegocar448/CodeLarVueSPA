@@ -38649,7 +38649,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "tbody",
-        _vm._l(_vm.products.data.data, function(product, index) {
+        _vm._l(_vm.products.data, function(product, index) {
           return _c("tr", { key: index }, [
             _c("td", [_vm._v(_vm._s(product.id))]),
             _vm._v(" "),
@@ -56783,6 +56783,20 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/js/config/configs.js":
+/*!***********************************************!*\
+  !*** ./resources/assets/js/config/configs.js ***!
+  \***********************************************/
+/*! exports provided: URL_BASE */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "URL_BASE", function() { return URL_BASE; });
+var URL_BASE = '/api/v1/';
+
+/***/ }),
+
 /***/ "./resources/assets/js/routes/routers.js":
 /*!***********************************************!*\
   !*** ./resources/assets/js/routes/routers.js ***!
@@ -56965,12 +56979,18 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _config_configs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../config/configs */ "./resources/assets/js/config/configs.js");
+
+
+var RESOURCE = 'products';
 /* harmony default export */ __webpack_exports__["default"] = ({
-  loadProducts: function loadProducts(context, params) {
+  loadProducts: function loadProducts(context) {
     context.commit('PRELOADER', true);
-    axios.get('/api/v1/products').then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(_config_configs__WEBPACK_IMPORTED_MODULE_1__["URL_BASE"]).concat(RESOURCE)).then(function (response) {
       console.log(response);
-      context.commit('LOAD_PRODUCTS', response);
+      context.commit('LOAD_PRODUCTS', response.data);
     })["catch"](function (error) {
       console.log(errors);
     })["finally"](function () {
@@ -57022,7 +57042,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./resources/assets/js/vuex/modules/products/actions.js");
 /* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mutations */ "./resources/assets/js/vuex/modules/products/mutations.js");
-/* harmony import */ var _states__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./states */ "./resources/assets/js/vuex/modules/products/states.js");
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./state */ "./resources/assets/js/vuex/modules/products/state.js");
 /* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getters */ "./resources/assets/js/vuex/modules/products/getters.js");
 
 
@@ -57031,16 +57051,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   actions: _actions__WEBPACK_IMPORTED_MODULE_0__["default"],
   mutations: _mutations__WEBPACK_IMPORTED_MODULE_1__["default"],
-  states: _states__WEBPACK_IMPORTED_MODULE_2__["default"],
+  state: _state__WEBPACK_IMPORTED_MODULE_2__["default"],
   getters: _getters__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
 
 /***/ }),
 
-/***/ "./resources/assets/js/vuex/modules/products/states.js":
-/*!*************************************************************!*\
-  !*** ./resources/assets/js/vuex/modules/products/states.js ***!
-  \*************************************************************/
+/***/ "./resources/assets/js/vuex/modules/products/state.js":
+/*!************************************************************!*\
+  !*** ./resources/assets/js/vuex/modules/products/state.js ***!
+  \************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

@@ -1,12 +1,17 @@
+import axios from 'axios'
+import {URL_BASE} from '../../../config/configs'
+
+const RESOURCE = 'products'
+
 export default {    
-    loadProducts(context, params){
+    loadProducts(context){
         context.commit('PRELOADER', true)
         
-        axios.get('/api/v1/products')
+        axios.get(`${URL_BASE}${RESOURCE}`)
             .then(response => {                    
                 console.log(response)
 
-                context.commit('LOAD_PRODUCTS', response)
+                context.commit('LOAD_PRODUCTS', response.data)
             })
             .catch(error => {
                 console.log(errors)
