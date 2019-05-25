@@ -1861,14 +1861,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
-    this.$store.dispatch('loadCategories');
+    this.loadCategories();
   },
   computed: {
     categories: function categories() {
       return this.$store.state.categories.items;
+    }
+  },
+  methods: {
+    loadCategories: function loadCategories() {
+      this.$store.dispatch('loadCategories');
+    },
+    destroy: function destroy(category) {
+      var _this = this;
+
+      this.$store.dispatch('destroyCategory', category.id).then(function () {
+        _this.$snotify.success("Sucesso ao deletar a categoria ".concat(category.name));
+
+        _this.loadCategories();
+      })["catch"](function (error) {
+        console.log(erro);
+
+        _this.$snotify.error('Erro ao deletar a categoria', 'Erro');
+      });
     }
   }
 });
@@ -38173,6 +38192,21 @@ var render = function() {
                       }
                     },
                     [_vm._v("Editar Categoria")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-danger",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.destroy(category)
+                        }
+                      }
+                    },
+                    [_vm._v("Remover")]
                   )
                 ],
                 1
@@ -56414,6 +56448,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     updateCategory: function updateCategory(context, params) {
+      context.commit('PRELOADER', true);
       return new Promise(function (resolve, reject) {
         axios.put("/api/v1/categories/".concat(params.id), params).then(function (response) {
           return resolve();
@@ -56422,6 +56457,16 @@ __webpack_require__.r(__webpack_exports__);
         })["finally"](function () {
           return context.commit('PRELOADER', false);
         });
+      });
+    },
+    destroyCategory: function destroyCategory(context, id) {
+      context.commit('PRELOADER', true);
+      return new Promise(function (resolve, reject) {
+        axios["delete"]("/api/v1/categories/".concat(id)).then(function (response) {
+          return resolve();
+        })["catch"](function (error) {
+          return reject(error);
+        }); //.finally(() => context.commit('PRELOADER', false))
       });
     }
   },

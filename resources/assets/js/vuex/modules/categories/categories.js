@@ -64,6 +64,8 @@ export default {
         },
 
         updateCategory(context, params){
+            context.commit('PRELOADER', true)
+
             return new Promise((resolve, reject) => {
 
                 axios.put(`/api/v1/categories/${params.id}`, params)
@@ -72,6 +74,19 @@ export default {
                 .finally(() => context.commit('PRELOADER', false))
                 
             })  
+        },
+
+        destroyCategory(context, id){
+            context.commit('PRELOADER', true)
+
+            return new Promise((resolve, reject) => {
+
+                axios.delete(`/api/v1/categories/${id}`)
+                .then(response => resolve())
+                .catch(error => reject(error))
+                //.finally(() => context.commit('PRELOADER', false))
+                
+            }) 
         }
 
 

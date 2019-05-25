@@ -35,7 +35,7 @@ export default {
                             .catch(error => {
                                 this.$snotify.error('Categoria não encontrada', '404')
 
-                                this.$router.push({name: 'admin.categories'})
+                                this.$router.push({name: 'admin.categories'})   
                             })
         }
     },
