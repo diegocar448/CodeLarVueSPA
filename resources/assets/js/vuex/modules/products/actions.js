@@ -26,7 +26,7 @@ export default {
                 axios.post(`${URL_BASE}${RESOURCE}`, params)
                 .then(response => resolve())
                 .catch(error => reject(error.response))
-                //.finally(() => context.commit('PRELOADER', false))
+                .finally(() => context.commit('PRELOADER', false))
                 
             }) 
     }  

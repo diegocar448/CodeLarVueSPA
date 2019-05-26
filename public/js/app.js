@@ -2351,13 +2351,25 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch('storeProduct', this.product).then(function () {
         _this.$snotify.success('Successo ao cadastrar');
 
+        _this.reset();
+
         _this.$emit('success');
       })["catch"](function (errors) {
         _this.$snotify.error('Algo Errado', 'Erro');
 
-        console.log(error.response.errors);
-        _this.errors = errors.response.errors;
+        console.log(errors.data.errors);
+        console.log(_this.Vodal);
+        _this.errors = errors.data.errors;
       });
+    },
+    reset: function reset() {
+      this.errors = {};
+      this.product = {
+        id: '',
+        name: '',
+        description: '',
+        category_id: 1
+      };
     }
   }
 });
@@ -57825,7 +57837,9 @@ var RESOURCE = 'products';
         return resolve();
       })["catch"](function (error) {
         return reject(error.response);
-      }); //.finally(() => context.commit('PRELOADER', false))
+      })["finally"](function () {
+        return context.commit('PRELOADER', false);
+      });
     });
   }
 });

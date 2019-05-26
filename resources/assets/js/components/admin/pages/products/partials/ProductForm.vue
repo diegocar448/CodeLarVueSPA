@@ -51,14 +51,30 @@ export default {
                         .then(() => {
                             this.$snotify.success('Successo ao cadastrar')
 
+                            this.reset()
+
                             this.$emit('success')
+
+                            
                         })
                         .catch(errors => {
                             this.$snotify.error('Algo Errado', 'Erro')
                             
-                            console.log(error.response.errors)
-                            this.errors = errors.response.errors
+                            console.log(errors.data.errors)
+                            console.log(this.Vodal)
+                            this.errors = errors.data.errors
                         })
+        },
+
+        reset(){
+            this.errors = {}
+            this.product = {
+                    id:'',
+                    name:'',
+                    description:'',               
+                    category_id:1,
+            }
+
         }
     }
 }
