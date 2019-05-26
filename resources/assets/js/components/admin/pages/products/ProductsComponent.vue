@@ -14,7 +14,7 @@
                 @hide="hideModal"
                 :width="600"
                 :height="500">
-                <product-form></product-form>
+                <product-form @success="success"></product-form>
                 </vodal>
             </div>
             <div class="col">
@@ -92,6 +92,14 @@ export default {
         },
         hideModal(){
             this.showModal = false
+        },
+        success(){
+            //após cadastrado com sucesso fechar modal
+            this.hideModal()
+            //atualizar a listagem de produtos
+            this.loadProducts(1)
+            
+
         }
           
     },

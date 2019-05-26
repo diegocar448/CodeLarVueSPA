@@ -51,7 +51,7 @@ export default {
                         .then(() => {
                             this.$snotify.success('Successo ao cadastrar')
 
-                            this.$router.push({name: 'admin.products'})
+                            this.$emit('success')
                         })
                         .catch(errors => {
                             this.$snotify.error('Algo Errado', 'Erro')
