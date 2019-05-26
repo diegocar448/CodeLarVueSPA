@@ -21,13 +21,44 @@
 
 <script>
 export default {
+    props:{
+        update:{
+            require:false,
+            type:Boolean,
+            default:false
+        },
+        product:{
+            required:false,
+            type:Object,
+            default:()=>{
+                return{
+                    id:'',
+                    name:'',
+                    description:'',               
+                    category_id:1,
+                }
+            }
+        }
+    },
     data(){
-        return {
-            product:{
-                name:'',
-                description:'',
-            },
+        return {            
             errors: ''
+        }
+    },
+    methods:{
+        onSubmit(){
+            this.$store.dispatch('storeProduct', this.product)
+                        .then(() => {
+                            this.$snotify.success('Successo ao cadastrar')
+
+                            this.$router.push({name: 'admin.products'})
+                        })
+                        .catch(errors => {
+                            this.$snotify.error('Algo Errado', 'Erro')
+                            
+                            console.log(error.response.errors)
+                            this.errors = errors.response.errors
+                        })
         }
     }
 }

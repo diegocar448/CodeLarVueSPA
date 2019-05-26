@@ -2314,14 +2314,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    update: {
+      require: false,
+      type: Boolean,
+      "default": false
+    },
+    product: {
+      required: false,
+      type: Object,
+      "default": function _default() {
+        return {
+          id: '',
+          name: '',
+          description: '',
+          category_id: 1
+        };
+      }
+    }
+  },
   data: function data() {
     return {
-      product: {
-        name: '',
-        description: ''
-      },
       errors: ''
     };
+  },
+  methods: {
+    onSubmit: function onSubmit() {
+      var _this = this;
+
+      this.$store.dispatch('storeProduct', this.product).then(function () {
+        _this.$snotify.success('Successo ao cadastrar');
+
+        _this.$router.push({
+          name: 'admin.products'
+        });
+      })["catch"](function (errors) {
+        _this.$snotify.error('Algo Errado', 'Erro');
+
+        console.log(error.response.errors);
+        _this.errors = errors.response.errors;
+      });
+    }
   }
 });
 
@@ -57779,6 +57812,18 @@ var RESOURCE = 'products';
       console.log(errors);
     })["finally"](function () {
       return context.commit('PRELOADER', false);
+    });
+  },
+  storeProduct: function storeProduct(context, params) {
+    context.commit('PRELOADER', true);
+    return new Promise(function (resolve, reject) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("".concat(_config_configs__WEBPACK_IMPORTED_MODULE_1__["URL_BASE"]).concat(RESOURCE), params).then(function (response) {
+        return resolve();
+      })["catch"](function (error) {
+        return reject(error.response);
+      })["finally"](function () {
+        return context.commit('PRELOADER', false);
+      });
     });
   }
 });

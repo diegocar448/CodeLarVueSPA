@@ -17,5 +17,17 @@ export default {
                 console.log(errors)
             })
             .finally(() => context.commit('PRELOADER', false))
-    },     
+    },   
+    storeProduct(context, params){        
+        context.commit('PRELOADER', true)
+
+            return new Promise((resolve, reject) => {
+
+                axios.post(`${URL_BASE}${RESOURCE}`, params)
+                .then(response => resolve())
+                .catch(error => reject(error.response))
+                .finally(() => context.commit('PRELOADER', false))
+                
+            }) 
+    }  
 }
