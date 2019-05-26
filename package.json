@@ -22,6 +22,7 @@
         "resolve-url-loader": "2.3.1",
         "sass": "^1.20.1",
         "sass-loader": "7.*",
+        "vodal": "^2.4.0",
         "vue": "^2.5.7",
         "vue-router": "^3.0.6",
         "vue-snotify": "^3.2.1",
