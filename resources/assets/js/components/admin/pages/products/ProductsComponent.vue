@@ -3,7 +3,20 @@
         <h1>Listagem de Produtos</h1>
 
         <div class="row">
-            <div class="col">#add</div>
+            <div class="col">
+                <button class="btn btn-success" @click.prevent="showModal = true">
+                    Novo
+                </button>
+
+                <vodal
+                :show="showModal"
+                animation="flip"
+                @hide="hideModal"
+                :width="600"
+                :height="500">
+                <product-form></product-form>
+                </vodal>
+            </div>
             <div class="col">
                 <search @search="searchForm"></search>
             </div>
@@ -34,15 +47,17 @@
         <pagination
             :pagination="products"
             :offset="6"
-            @paginate="loadProducts">
+            @paginate="loadProducts">            
         </pagination>        
     </div>
 </template>
 
 <script>
+import Vodal from 'vodal'
 import axios from 'axios'
 import PaginationComponent from '../../../layouts/PaginationComponent'
 import SearchComponent from '../../layouts/SearchComponent'
+import ProductForm from './partials/ProductForm'
 
 
 
@@ -53,6 +68,7 @@ export default {
     data(){
         return {
             search:'',
+            showModal:false,
         }
     },
     computed:{
@@ -73,12 +89,17 @@ export default {
         searchForm(filter){
             this.search = filter
             this.loadProducts(1)
-        }  
+        },
+        hideModal(){
+            this.showModal = false
+        }
           
     },
     components:{
         pagination: PaginationComponent,
-        search: SearchComponent
+        search: SearchComponent,
+        Vodal,
+        ProductForm,
 
     }
     
