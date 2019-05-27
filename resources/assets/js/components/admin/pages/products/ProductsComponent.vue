@@ -8,7 +8,7 @@
                     Novo
                 </button>
 
-                <vodal
+                <vodal                            
                 :show="showModal"
                 animation="flip"
                 @hide="hideModal"
@@ -46,7 +46,7 @@
                     <td>{{ product.description}}</td>                
                     <td>
                         <a @click.prevent="edit(product.id)" class="btn btn-primary">Editar</a>
-                        <a @click.prevent="" class="btn btn-danger">Excluir</a>
+                        <a @click.prevent="confirmDelete(product)" class="btn btn-danger">Excluir</a>
                     </td>
                 </tr>
             </tbody>
@@ -151,6 +151,28 @@ export default {
                 description:'',               
                 category_id:'',
             }
+        },
+        confirmDelete(product){
+            
+
+            this.$snotify.error(`Deseja realmente deletar o produto ${product.name}`, product.name, {
+                timeout:10000,
+                showProgressBar:true,
+                closeOnClick:true,
+                pauseOnHover:true,
+                buttons:[
+                    {text:'Não'},
+                    {text:'Sim', action:  (toast)=>{this.destroy(product.id); this.$snotify.remove(toast.id)}},
+                ]
+            })
+        },
+        destroy(id){
+            this.$store.dispatch('destroyProduct',id)
+                        .then(() => {
+                            this.$snotify.success('Deletado com sucesso!')
+                            this.loadProducts(1)
+                        })
+                        .catch(() => this.$snotify.error('Erro ao deletar!'))
         }
           
     },
