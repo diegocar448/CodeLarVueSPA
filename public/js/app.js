@@ -2233,6 +2233,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2245,7 +2253,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       search: '',
-      showModal: false
+      showModal: false,
+      product: {
+        id: '',
+        name: '',
+        description: '',
+        category_id: ''
+      },
+      update: false
     };
   },
   computed: {
@@ -2264,6 +2279,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch('loadProducts', _objectSpread({}, this.params, {
         page: page
       }));
+    },
+    edit: function edit(id) {
+      var _this = this;
+
+      this.$store.dispatch('loadProduct', id).then(function (response) {
+        console.log(response);
+        _this.product = response;
+        _this.showModal = true;
+        _this.update = true;
+      })["catch"](function (errors) {
+        _this.$snotify.error('Erro ao carregar produto', 'Erro');
+      });
     },
     searchForm: function searchForm(filter) {
       this.search = filter;
@@ -39043,7 +39070,12 @@ var render = function() {
                 },
                 on: { hide: _vm.hideModal }
               },
-              [_c("product-form", { on: { success: _vm.success } })],
+              [
+                _c("product-form", {
+                  attrs: { product: _vm.product, update: _vm.update },
+                  on: { success: _vm.success }
+                })
+              ],
               1
             )
           ],
@@ -39073,7 +39105,34 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(product.description))]),
               _vm._v(" "),
-              _c("td")
+              _c("td", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.edit(product.id)
+                      }
+                    }
+                  },
+                  [_vm._v("Editar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-danger",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                      }
+                    }
+                  },
+                  [_vm._v("Excluir")]
+                )
+              ])
             ])
           }),
           0
@@ -57898,6 +57957,18 @@ var RESOURCE = 'products';
       console.log(errors);
     })["finally"](function () {
       return context.commit('PRELOADER', false);
+    });
+  },
+  loadProduct: function loadProduct(context, id) {
+    context.commit('PRELOADER', true);
+    return new Promise(function (resolve, reject) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(_config_configs__WEBPACK_IMPORTED_MODULE_1__["URL_BASE"]).concat(RESOURCE, "/").concat(id)).then(function (response) {
+        return resolve(response.data);
+      })["catch"](function (error) {
+        return reject();
+      })["finally"](function () {
+        return context.commit('PRELOADER', false);
+      });
     });
   },
   storeProduct: function storeProduct(context, params) {

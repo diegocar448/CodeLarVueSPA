@@ -14,7 +14,12 @@
                 @hide="hideModal"
                 :width="600"
                 :height="500">
-                <product-form @success="success"></product-form>
+                    <product-form 
+                    :product="product"
+                    :update="update"
+                    @success="success">
+
+                    </product-form>
                 </vodal>
             </div>
             <div class="col">
@@ -39,7 +44,10 @@
                     <td>{{ product.name}}</td>
                     <td>{{ product.id}}</td>               
                     <td>{{ product.description}}</td>                
-                    <td></td>
+                    <td>
+                        <a @click.prevent="edit(product.id)" class="btn btn-primary">Editar</a>
+                        <a @click.prevent="" class="btn btn-danger">Excluir</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -69,7 +77,15 @@ export default {
         return {
             search:'',
             showModal:false,
+            product:{
+                id:'',
+                name:'',
+                description:'',               
+                category_id:'',
+            },
+            update:false,
         }
+    
     },
     computed:{
         products(){
@@ -85,7 +101,23 @@ export default {
     methods:{
         loadProducts(page){
             this.$store.dispatch('loadProducts', {...this.params, page})
-        },     
+        },  
+        edit(id){
+            this.$store.dispatch('loadProduct', id)
+                        .then( response => {
+                            console.log(response)
+                            this.product = response
+                            
+                            this.showModal=true
+
+                            this.update = true                           
+                            
+
+                        })
+                        .catch(errors => {
+                            this.$snotify.error('Erro ao carregar produto', 'Erro')                            
+                        })
+        },   
         searchForm(filter){
             this.search = filter
             this.loadProducts(1)

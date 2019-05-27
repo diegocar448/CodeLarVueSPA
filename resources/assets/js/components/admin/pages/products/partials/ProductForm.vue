@@ -45,7 +45,7 @@ export default {
                     description:'',               
                     category_id:1,
                 }
-            }
+            },            
         }
     },    
     data(){
