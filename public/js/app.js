@@ -2319,6 +2319,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     update: {
@@ -2344,6 +2352,11 @@ __webpack_require__.r(__webpack_exports__);
       errors: ''
     };
   },
+  computed: {
+    categories: function categories() {
+      return this.$store.state.categories.items.data;
+    }
+  },
   methods: {
     onSubmit: function onSubmit() {
       var _this = this;
@@ -2368,7 +2381,7 @@ __webpack_require__.r(__webpack_exports__);
         id: '',
         name: '',
         description: '',
-        category_id: 1
+        category_id: ''
       };
     }
   }
@@ -39198,6 +39211,62 @@ var render = function() {
           ]
         ),
         _vm._v(" "),
+        _c(
+          "div",
+          { class: ["form-group", { "has-error": _vm.errors.category_id }] },
+          [
+            _vm.errors.category_id
+              ? _c("div", [_vm._v(_vm._s(_vm.errors.category_id[0]))])
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.product.category_id,
+                    expression: "product.category_id"
+                  }
+                ],
+                staticClass: "form-control",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.product,
+                      "category_id",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "" } }, [
+                  _vm._v("Selecione a Categoria")
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.categories, function(category) {
+                  return _c(
+                    "option",
+                    { key: category.id, domProps: { value: category.id } },
+                    [_vm._v(_vm._s(category.name))]
+                  )
+                })
+              ],
+              2
+            )
+          ]
+        ),
+        _vm._v(" "),
         _vm._m(0)
       ]
     )
@@ -56689,6 +56758,7 @@ var app = new Vue({
   store: _vuex_store__WEBPACK_IMPORTED_MODULE_2__["default"],
   el: '#app'
 });
+_vuex_store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('loadCategories');
 
 /***/ }),
 
