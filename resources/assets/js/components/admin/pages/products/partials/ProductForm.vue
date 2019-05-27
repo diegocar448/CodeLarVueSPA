@@ -60,9 +60,11 @@ export default {
     },
     methods:{
         onSubmit(){
-            this.$store.dispatch('storeProduct', this.product)
+            let action = this.update ? 'updateProduct' : 'storeProduct'
+
+            this.$store.dispatch(action, this.product)
                         .then(() => {
-                            this.$snotify.success('Successo ao cadastrar')
+                            this.$snotify.success('Successo ao enviar!')
 
                             this.reset()
 

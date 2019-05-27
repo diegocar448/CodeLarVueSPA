@@ -28,7 +28,7 @@ class StoreUpdateProductFormRequest extends FormRequest
             'category_id'   => 'required|exists:categories,id',
             'name'          => "required|min:3|max:10|unique:products,name,{$id},id",
             'description'   => 'max:1000',
-            'image'         => 'image',
+            //'image'         => 'image',
         ];
     }
 }

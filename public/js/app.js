@@ -2388,8 +2388,9 @@ __webpack_require__.r(__webpack_exports__);
     onSubmit: function onSubmit() {
       var _this = this;
 
-      this.$store.dispatch('storeProduct', this.product).then(function () {
-        _this.$snotify.success('Successo ao cadastrar');
+      var action = this.update ? 'updateProduct' : 'storeProduct';
+      this.$store.dispatch(action, this.product).then(function () {
+        _this.$snotify.success('Successo ao enviar!');
 
         _this.reset();
 
@@ -57975,6 +57976,18 @@ var RESOURCE = 'products';
     context.commit('PRELOADER', true);
     return new Promise(function (resolve, reject) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("".concat(_config_configs__WEBPACK_IMPORTED_MODULE_1__["URL_BASE"]).concat(RESOURCE), params).then(function (response) {
+        return resolve();
+      })["catch"](function (error) {
+        return reject(error.response);
+      })["finally"](function () {
+        return context.commit('PRELOADER', false);
+      });
+    });
+  },
+  updateProduct: function updateProduct(context, params) {
+    context.commit('PRELOADER', true);
+    return new Promise(function (resolve, reject) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("".concat(_config_configs__WEBPACK_IMPORTED_MODULE_1__["URL_BASE"]).concat(RESOURCE, "/").concat(params.id), params).then(function (response) {
         return resolve();
       })["catch"](function (error) {
         return reject(error.response);

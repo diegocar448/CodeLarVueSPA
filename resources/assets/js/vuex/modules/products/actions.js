@@ -39,5 +39,18 @@ export default {
                 .finally(() => context.commit('PRELOADER', false))
                 
             }) 
-    }  
+    },
+    
+    updateProduct(context, params){        
+        context.commit('PRELOADER', true)
+
+            return new Promise((resolve, reject) => {
+
+                axios.put(`${URL_BASE}${RESOURCE}/${params.id}`, params)
+                .then(response => resolve())
+                .catch(error => reject(error.response))
+                .finally(() => context.commit('PRELOADER', false))
+                
+            }) 
+    }
 }
