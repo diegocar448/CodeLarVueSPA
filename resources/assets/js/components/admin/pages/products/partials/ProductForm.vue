@@ -38,14 +38,7 @@ export default {
         product:{
             required:false,
             type:Object,
-            default:()=>{
-                return{
-                    id:'',
-                    name:'',
-                    description:'',               
-                    category_id:1,
-                }
-            },            
+                     
         }
     },    
     data(){
@@ -82,13 +75,7 @@ export default {
         },
 
         reset(){
-            this.errors = {}
-            this.product = {
-                    id:'',
-                    name:'',
-                    description:'',               
-                    category_id:'',
-            }
+            this.errors = {}         
 
         }
     },

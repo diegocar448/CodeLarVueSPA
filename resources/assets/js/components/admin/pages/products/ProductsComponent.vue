@@ -4,7 +4,7 @@
 
         <div class="row">
             <div class="col">
-                <button class="btn btn-success" @click.prevent="showModal = true">
+                <button class="btn btn-success" @click.prevent="create">
                     Novo
                 </button>
 
@@ -101,8 +101,19 @@ export default {
     methods:{
         loadProducts(page){
             this.$store.dispatch('loadProducts', {...this.params, page})
+        },
+        create(){
+            this.update = false
+
+            this.reset()
+
+            this.showModal = true
+
+            
         },  
         edit(id){
+            this.reset()
+
             this.$store.dispatch('loadProduct', id)
                         .then( response => {
                             console.log(response)
@@ -132,6 +143,14 @@ export default {
             this.loadProducts(1)
             
 
+        },
+        reset(){
+            this.product = {
+                id:'',
+                name:'',
+                description:'',               
+                category_id:'',
+            }
         }
           
     },

@@ -2280,9 +2280,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         page: page
       }));
     },
+    create: function create() {
+      this.update = false;
+      this.reset();
+      this.showModal = true;
+    },
     edit: function edit(id) {
       var _this = this;
 
+      this.reset();
       this.$store.dispatch('loadProduct', id).then(function (response) {
         console.log(response);
         _this.product = response;
@@ -2304,6 +2310,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.hideModal(); //atualizar a listagem de produtos
 
       this.loadProducts(1);
+    },
+    reset: function reset() {
+      this.product = {
+        id: '',
+        name: '',
+        description: '',
+        category_id: ''
+      };
     }
   },
   components: {
@@ -2363,15 +2377,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     product: {
       required: false,
-      type: Object,
-      "default": function _default() {
-        return {
-          id: '',
-          name: '',
-          description: '',
-          category_id: 1
-        };
-      }
+      type: Object
     }
   },
   data: function data() {
@@ -2405,12 +2411,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     reset: function reset() {
       this.errors = {};
-      this.product = {
-        id: '',
-        name: '',
-        description: '',
-        category_id: ''
-      };
     }
   }
 });
@@ -39053,7 +39053,7 @@ var render = function() {
                 on: {
                   click: function($event) {
                     $event.preventDefault()
-                    _vm.showModal = true
+                    return _vm.create($event)
                   }
                 }
               },
