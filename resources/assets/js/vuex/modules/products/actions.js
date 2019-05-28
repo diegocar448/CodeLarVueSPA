@@ -3,6 +3,13 @@ import {URL_BASE} from '../../../config/configs'
 
 const RESOURCE = 'products'
 
+//header usado para upload de arquivos
+const CONFIGS = {
+    headers:{
+        'content-type': 'multipart/form-data',
+    }
+}
+
 export default {    
     loadProducts(context, params){
         context.commit('PRELOADER', true)
@@ -28,12 +35,12 @@ export default {
                 .finally(() => context.commit('PRELOADER', false))
         })
     },   
-    storeProduct(context, params){        
+    storeProduct(context, formData){        
         context.commit('PRELOADER', true)
 
             return new Promise((resolve, reject) => {
 
-                axios.post(`${URL_BASE}${RESOURCE}`, params)
+                axios.post(`${URL_BASE}${RESOURCE}`, formData, CONFIGS)
                 .then(response => resolve())
                 .catch(error => reject(error.response))
                 .finally(() => context.commit('PRELOADER', false))

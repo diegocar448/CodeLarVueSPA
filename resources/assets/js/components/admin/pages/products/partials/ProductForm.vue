@@ -63,7 +63,19 @@ export default {
         onSubmit(){
             let action = this.update ? 'updateProduct' : 'storeProduct'
 
-            this.$store.dispatch(action, this.product)
+            const formData = new FormData()
+
+            if(this.upload != null)
+            {
+                formData.append('image', this.upload)
+            
+                formData.append('id', this.product.id)
+                formData.append('name', this.product.name)
+                formData.append('description', this.product.description)
+                formData.append('category_id', this.product.category_id)
+            }
+
+            this.$store.dispatch(action, formData)
                         .then(() => {
                             this.$snotify.success('Successo ao enviar!')
 
@@ -92,7 +104,7 @@ export default {
             if(!files.length){
                 return
             }else{
-                this.upload = file[0]
+                this.upload = files[0]
             }
         }
     },

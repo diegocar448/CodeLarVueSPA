@@ -2436,7 +2436,17 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var action = this.update ? 'updateProduct' : 'storeProduct';
-      this.$store.dispatch(action, this.product).then(function () {
+      var formData = new FormData();
+
+      if (this.upload != null) {
+        formData.append('image', this.upload);
+        formData.append('id', this.product.id);
+        formData.append('name', this.product.name);
+        formData.append('description', this.product.description);
+        formData.append('category_id', this.product.category_id);
+      }
+
+      this.$store.dispatch(action, formData).then(function () {
         _this.$snotify.success('Successo ao enviar!');
 
         _this.reset();
@@ -2460,7 +2470,7 @@ __webpack_require__.r(__webpack_exports__);
       if (!files.length) {
         return;
       } else {
-        this.upload = file[0];
+        this.upload = files[0];
       }
     }
   }
@@ -58013,7 +58023,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _config_configs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../config/configs */ "./resources/assets/js/config/configs.js");
 
 
-var RESOURCE = 'products';
+var RESOURCE = 'products'; //header usado para upload de arquivos
+
+var CONFIGS = {
+  headers: {
+    'content-type': 'multipart/form-data'
+  }
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
   loadProducts: function loadProducts(context, params) {
     context.commit('PRELOADER', true);
@@ -58040,10 +58056,10 @@ var RESOURCE = 'products';
       });
     });
   },
-  storeProduct: function storeProduct(context, params) {
+  storeProduct: function storeProduct(context, formData) {
     context.commit('PRELOADER', true);
     return new Promise(function (resolve, reject) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("".concat(_config_configs__WEBPACK_IMPORTED_MODULE_1__["URL_BASE"]).concat(RESOURCE), params).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("".concat(_config_configs__WEBPACK_IMPORTED_MODULE_1__["URL_BASE"]).concat(RESOURCE), formData, CONFIGS).then(function (response) {
         return resolve();
       })["catch"](function (error) {
         return reject(error.response);
