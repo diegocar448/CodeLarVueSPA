@@ -1,10 +1,17 @@
 <template>
     <div>
         <form class="form" action="" @submit.prevent="onSubmit">
+            <div :class="['form-group', {'has-error': errors.image}]">
+                <div v-if="errors.image">{{ errors.image[0] }}</div>
+                <input type="file" class="form-control" name="image" @change="onFileChange">
+            </div>
+
             <div :class="['form-group', {'has-error': errors.name}]">
                 <div v-if="errors.name">{{ errors.name[0] }}</div>
-                <input type="'text'" v-model="product.name" class="form-control" name="name" placeholder="Nome do Produto">
+                <input type="text" v-model="product.name" class="form-control" name="name" placeholder="Nome do Produto">
             </div>
+
+            
 
             <div :class="['form-group', {'has-error': errors.description}]">
                 <div v-if="errors.description">{{ errors.description[0] }}</div>
@@ -43,7 +50,8 @@ export default {
     },    
     data(){
         return {            
-            errors: ''
+            errors: {},
+            upload: null,
         }
     },
     computed:{
@@ -75,8 +83,17 @@ export default {
         },
 
         reset(){
-            this.errors = {}         
+            this.errors = {}
+        },
+        onFileChange(e){
+            e.target.files
 
+            let files = e.target.files || e.dataTransfer.files
+            if(!files.length){
+                return
+            }else{
+                this.upload = file[0]
+            }
         }
     },
     

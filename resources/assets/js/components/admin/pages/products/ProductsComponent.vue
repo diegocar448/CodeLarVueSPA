@@ -80,6 +80,7 @@ export default {
             product:{
                 id:'',
                 name:'',
+                image:'',
                 description:'',               
                 category_id:'',
             },
@@ -148,6 +149,7 @@ export default {
             this.product = {
                 id:'',
                 name:'',
+                image:'',
                 description:'',               
                 category_id:'',
             }

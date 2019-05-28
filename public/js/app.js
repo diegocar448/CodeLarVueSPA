@@ -2257,6 +2257,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       product: {
         id: '',
         name: '',
+        image: '',
         description: '',
         category_id: ''
       },
@@ -2315,6 +2316,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.product = {
         id: '',
         name: '',
+        image: '',
         description: '',
         category_id: ''
       };
@@ -2399,6 +2401,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     update: {
@@ -2413,7 +2422,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      errors: ''
+      errors: {},
+      upload: null
     };
   },
   computed: {
@@ -2442,6 +2452,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     reset: function reset() {
       this.errors = {};
+    },
+    onFileChange: function onFileChange(e) {
+      e.target.files;
+      var files = e.target.files || e.dataTransfer.files;
+
+      if (!files.length) {
+        return;
+      } else {
+        this.upload = file[0];
+      }
     }
   }
 });
@@ -39235,6 +39255,22 @@ var render = function() {
         }
       },
       [
+        _c(
+          "div",
+          { class: ["form-group", { "has-error": _vm.errors.image }] },
+          [
+            _vm.errors.image
+              ? _c("div", [_vm._v(_vm._s(_vm.errors.image[0]))])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "file", name: "image" },
+              on: { change: _vm.onFileChange }
+            })
+          ]
+        ),
+        _vm._v(" "),
         _c("div", { class: ["form-group", { "has-error": _vm.errors.name }] }, [
           _vm.errors.name
             ? _c("div", [_vm._v(_vm._s(_vm.errors.name[0]))])
@@ -39251,7 +39287,7 @@ var render = function() {
             ],
             staticClass: "form-control",
             attrs: {
-              type: "'text'",
+              type: "text",
               name: "name",
               placeholder: "Nome do Produto"
             },
