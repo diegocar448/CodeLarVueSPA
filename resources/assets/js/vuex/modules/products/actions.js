@@ -48,12 +48,17 @@ export default {
             }) 
     },
     
-    updateProduct(context, params){        
+    updateProduct(context, formData){        
         context.commit('PRELOADER', true)
 
             return new Promise((resolve, reject) => {
 
-                axios.put(`${URL_BASE}${RESOURCE}/${params.id}`, params)
+                //definir que ele será enviado para o metodo PUT e não POST
+                formData.append('_method', 'PUT')
+
+                //Com upload de imagem altera o verbo de put para post
+                //axios.put(`${URL_BASE}${RESOURCE}/${formData.get('id')}`, formData)
+                axios.post(`${URL_BASE}${RESOURCE}/${formData.get('id')}`, formData)
                 .then(response => resolve())
                 .catch(error => reject(error.response))
                 .finally(() => context.commit('PRELOADER', false))

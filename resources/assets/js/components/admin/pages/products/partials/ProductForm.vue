@@ -1,9 +1,15 @@
 <template>
     <div>
         <form class="form" action="" @submit.prevent="onSubmit">
-            <div :class="['form-group', {'has-error': errors.image}]">
-                <div v-if="errors.image">{{ errors.image[0] }}</div>
-                <input type="file" class="form-control" name="image" @change="onFileChange">
+            <div :class="['form-group', {'has-error': errors.image}]">                
+                <div v-if="errors.image">{{ errors.image[0] }}</div>                
+                <div v-if="imagePreview" class="text-center">
+                    <img :src="imagePreview" class="image-preview">
+                    <button class="btn btn-danger" @click.prevent="removePreviewImage">Remover</button>
+                </div>
+                <div v-else>
+                    <input type="file" class="form-control" name="image" @change="onFileChange">
+                </div>
             </div>
 
             <div :class="['form-group', {'has-error': errors.name}]">
@@ -45,13 +51,16 @@ export default {
         product:{
             required:false,
             type:Object,
+            
                      
-        }
+        },
+        
     },    
     data(){
         return {            
             errors: {},
             upload: null,
+            imagePreview: null,
         }
     },
     computed:{
@@ -79,9 +88,10 @@ export default {
                         .then(() => {
                             this.$snotify.success('Successo ao enviar!')
 
-                            this.reset()
+                            this.reset()                           
 
                             this.$emit('success')
+
 
                             
                         })
@@ -95,7 +105,8 @@ export default {
         },
 
         reset(){
-            this.errors = {}
+            this.errors = {}           
+
         },
         onFileChange(e){
             e.target.files
@@ -105,9 +116,30 @@ export default {
                 return
             }else{
                 this.upload = files[0]
+                this.previewImage(files[0])
             }
+        },
+        //para mostrar imagem
+        previewImage(file){
+            let reader = new FileReader()
+
+            reader.onload = (e) => {
+                this.imagePreview =  e.target.result
+            }
+
+            reader.readAsDataURL(file)
+        },
+        removePreviewImage(){
+            this.imagePreview = null
+            this.upload =null
         }
     },
     
 }
 </script>
+
+
+<style scoped>
+.image-preview{max-width:60px;}
+</style>
+

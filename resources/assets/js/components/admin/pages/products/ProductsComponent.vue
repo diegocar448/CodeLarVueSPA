@@ -85,6 +85,7 @@ export default {
                 category_id:'',
             },
             update:false,
+            upload:'',
         }
     
     },
@@ -106,7 +107,7 @@ export default {
         create(){
             this.update = false
 
-            this.reset()
+            this.reset()          
 
             this.showModal = true
 
@@ -149,10 +150,12 @@ export default {
             this.product = {
                 id:'',
                 name:'',
-                image:'',
+                image:'',                
                 description:'',               
                 category_id:'',
-            }
+            },
+            this.upload = {}
+
         },
         confirmDelete(product){
             
