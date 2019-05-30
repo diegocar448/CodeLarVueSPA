@@ -24,9 +24,10 @@
 <script>
 export default {
     computed:{
-        totalCategories(){
+        totalCategories(){            
             return this.$store.state.categories.items.data.length
         }
+        
     }
 }
 </script>
