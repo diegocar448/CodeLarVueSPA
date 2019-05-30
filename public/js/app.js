@@ -2469,7 +2469,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     reset: function reset() {
-      this.errors = {};
+      this.errors = {}, this.imagePreview = null;
+      this.upload = null;
     },
     onFileChange: function onFileChange(e) {
       e.target.files;

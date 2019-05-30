@@ -105,7 +105,10 @@ export default {
         },
 
         reset(){
-            this.errors = {}           
+            this.errors = {},
+            
+            this.imagePreview = null
+            this.upload = null
 
         },
         onFileChange(e){
