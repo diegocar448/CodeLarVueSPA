@@ -31,7 +31,7 @@
         <table class="table table-dark">
             <thead>
                 <tr>
-                    <th>Imagem</th>
+                    <th width="150px">Imagem</th>
                     <th>Nome</th>
                     <th>ID</th>           
                     <th>Descrição</th>
@@ -40,7 +40,11 @@
             </thead>
             <tbody>
                 <tr v-for="(product, index) in products.data" :key="index">
-                    <td>{{ product.image}}</td>
+                    <td>
+                        <div v-if="product.image">
+                            <img :src="[`storage/products/${product.image}`]" :alt="product.name" class="img-list">
+                        </div>                        
+                    </td>
                     <td>{{ product.name}}</td>
                     <td>{{ product.id}}</td>               
                     <td>{{ product.description}}</td>                
@@ -194,7 +198,9 @@ export default {
 </script>
 
 <style scoped>
-
+.img-list{
+    max-width:100px;
+}
 </style>
 
 
