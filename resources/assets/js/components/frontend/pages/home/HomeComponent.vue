@@ -7,6 +7,9 @@
                 <div v-if="product.image">
                     <img :src="[`storage/products/${product.image}`]" :alt="product.name" class="img-list">
                 </div> 
+                <div v-else>
+                    <img src="/imgs/no-image.jpg" class="img-list" alt="">
+                </div>
                 {{product.name}}
             </div>
         </div>
