@@ -19,7 +19,7 @@ const routes = [
         path: '/', 
         component:SiteComponent,
         children:[
-            {path: 'produto/:id', component:ProductDetail,  name:'product.detail'},
+            {path: 'produto/:id', component:ProductDetail,  name:'product.detail', props:true},
             {path: 'contato', component:ContactComponent, name:'contact'},
             {path: '', component:HomeComponent, name:'home'},
         ]
