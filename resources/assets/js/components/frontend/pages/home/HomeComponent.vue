@@ -26,7 +26,7 @@
 <script>
 import PaginationComponent from "../../../layouts/PaginationComponent"
 import Item from "../../../layouts/Item"
-import SearchComponent from "../../../admin/layouts/SearchComponent"
+import Search from "./partials/Search"
 
 
 export default {
@@ -38,7 +38,8 @@ export default {
     },
     data(){
         return{
-            filter:''
+            filter:'',      
+            category_id: '',     
         }
     },
     computed:{
@@ -48,6 +49,7 @@ export default {
         params(){
             return{
                 filter:this.filter,
+                category_id:this.category_id,
                 page:this.products.current_page,
             }
         }
@@ -57,16 +59,17 @@ export default {
         {
             this.$store.dispatch('loadProducts', {...this.params, page})
         },
-        search(filter){
-            this.filter = filter
+        search(values){
+            this.filter = values.filter
+            this.category_id = values.category_id
 
-            this.loadProducts(filter)
+            this.loadProducts()
         }
     },
     components: {
         paginate: PaginationComponent,
         Item,
-        search: SearchComponent
+        Search,
     }
     
 }
