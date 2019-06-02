@@ -5,7 +5,7 @@
             <img :src="[`storage/products/${product.image}`]" :alt="product.name" class="img-list">
         </div> 
         <div v-else>
-            <img src="/imgs/no-image.jpg" class="img-list" alt="">
+            <img src="/imgs/no-image.jpg" class="img-list" :alt="product.name">
         </div>
         <div>
             {{product.description}}
