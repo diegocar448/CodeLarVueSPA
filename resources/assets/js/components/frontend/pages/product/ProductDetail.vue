@@ -1,5 +1,5 @@
 <template>
     <div>
-        Sou a pagina de contatos
+        Detalhes do produto
     </div>
 </template>

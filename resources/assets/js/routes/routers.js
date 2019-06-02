@@ -9,6 +9,7 @@ import ProductsComponent from '../components/admin/pages/products/ProductsCompon
 import HomeComponent from '../components/frontend/pages/home/HomeComponent'
 import SiteComponent from '../components/frontend/SiteComponent'
 import ContactComponent from '../components/frontend/pages/contact/ContactComponent'
+import ProductDetail from '../components/frontend/pages/product/ProductDetail'
 
 
 Vue.use(VueRouter)
@@ -18,6 +19,7 @@ const routes = [
         path: '/', 
         component:SiteComponent,
         children:[
+            {path: 'produto/:id', component:ProductDetail,  name:'product.detail'},
             {path: 'contato', component:ContactComponent, name:'contact'},
             {path: '', component:HomeComponent, name:'home'},
         ]
