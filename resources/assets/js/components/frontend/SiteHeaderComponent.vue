@@ -10,6 +10,9 @@
             <li class="nav-item">
                 <router-link class="nav-link" :to="{name: 'cart'}">CARRINHO ( {{ cart.length }} )</router-link>
             </li>
+            <li class="nav-item">
+                <router-link class="nav-link" :to="{name: 'login'}">LOGIN</router-link>
+            </li>
         </ul>
     </div>
 </template>
