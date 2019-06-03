@@ -10,6 +10,7 @@ import HomeComponent from '../components/frontend/pages/home/HomeComponent'
 import SiteComponent from '../components/frontend/SiteComponent'
 import ContactComponent from '../components/frontend/pages/contact/ContactComponent'
 import ProductDetail from '../components/frontend/pages/product/ProductDetail'
+import CartComponent from '../components/frontend/pages/cart/CartComponent'
 
 
 Vue.use(VueRouter)
@@ -19,6 +20,7 @@ const routes = [
         path: '/', 
         component:SiteComponent,
         children:[
+            {path: 'carrinho', component:CartComponent, name: 'cart'},
             {path: 'produto/:id', component:ProductDetail,  name:'product.detail', props:true},
             {path: 'contato', component:ContactComponent, name:'contact'},
             {path: '', component:HomeComponent, name:'home'},

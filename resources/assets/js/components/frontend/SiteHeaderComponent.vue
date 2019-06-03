@@ -7,6 +7,21 @@
             <li class="nav-item">
                 <router-link class="nav-link" :to="{name: 'contact'}">CONTATO</router-link>
             </li>
+            <li class="nav-item">
+                <router-link class="nav-link" :to="{name: 'cart'}">CARRINHO ( {{ cart.length }} )</router-link>
+            </li>
         </ul>
     </div>
 </template>
+
+
+<script>
+export default {
+    computed:{
+        cart(){
+            return this.$store.state.cart.products
+        }
+    }
+}
+</script>
+
