@@ -47,6 +47,9 @@ const router = new VueRouter({
     routes
 })
 
+//Antes de cada rota ele vai passar por esse filtro
+router.beforeEach
+
 export default router
 
 
