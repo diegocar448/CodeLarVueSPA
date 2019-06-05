@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
+import store from '../vuex/store'
+
 import AdminComponent from '../components/admin/AdminComponent'
 import CategoriesComponent from '../components/admin/pages/categories/CategoriesComponent'
 import DashboardComponent from '../components/admin/pages/dashboard/DashboardComponent'
@@ -37,7 +40,7 @@ const routes = [
             {path: 'categories/create', component:AddCategoryComponent, name:'admin.categories.create'},
             {path: 'categories/:id/edit', component:EditCategoryComponent, name:'admin.categories.edit', props: true},
             
-            {path: 'products', component:ProductsComponent, name:'admin.products'},
+            {path: 'products', component:ProductsComponent, name:'admin.products', meta:{auth: true}},
         ],
     },
     
@@ -48,7 +51,13 @@ const router = new VueRouter({
 })
 
 //Antes de cada rota ele vai passar por esse filtro
-router.beforeEach
+router.beforeEach((to, from, next) => {
+    if(to.meta.auth && !store.state.auth.authenticated){
+        return router.push({name: 'login'})
+    }
+
+    next()    
+})
 
 export default router
 
