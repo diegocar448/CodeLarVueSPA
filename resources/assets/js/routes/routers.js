@@ -34,13 +34,15 @@ const routes = [
     {
         path: '/admin', 
         component:AdminComponent,
+        //meta:{auth:true, },
+        meta:{auth:true},
         children: [
             {path: '', component:DashboardComponent, name:'admin.dashboard'},
             {path: 'categories', component:CategoriesComponent, name:'admin.categories'},
             {path: 'categories/create', component:AddCategoryComponent, name:'admin.categories.create'},
             {path: 'categories/:id/edit', component:EditCategoryComponent, name:'admin.categories.edit', props: true},
             
-            {path: 'products', component:ProductsComponent, name:'admin.products', meta:{auth: true}},
+            {path: 'products', component:ProductsComponent, name:'admin.products'},
         ],
     },
     
@@ -55,6 +57,8 @@ router.beforeEach((to, from, next) => {
     if(to.meta.auth && !store.state.auth.authenticated){
         return router.push({name: 'login'})
     }
+
+    console.log(to.matched)
 
     next()    
 })
