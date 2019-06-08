@@ -1,3 +1,5 @@
+import { NAME_TOKEN } from './config/configs'
+
 
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
@@ -37,6 +39,13 @@ if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
+
+const tokenAccess = localStorage.getItem(NAME_TOKEN)
+
+if(tokenAccess)
+{
+    window.axios.defaults.headers.common['Authorization'] = `Bearer ${tokenAccess}`;
 }
 
 /**

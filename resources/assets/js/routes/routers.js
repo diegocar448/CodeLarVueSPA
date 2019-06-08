@@ -60,7 +60,7 @@ router.beforeEach((to, from, next) => {
 
     //some (retorna true ou false caso encontre alguma ocorrência no array)
     //console.log(to.matched.some(record => record.meta.auth))
-
+    
     if(to.matched.some(record => record.meta.auth) && !store.state.auth.authenticated)
     {
         return router.push({name: 'login'})
