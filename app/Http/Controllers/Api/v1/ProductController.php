@@ -15,7 +15,12 @@ class ProductController extends Controller
 
     public function __construct(Product $product)
     {
-        $this->product = $product;
+        $this->product = $product; 
+
+        //Aqui ele dirá quais metodos não passarão pelo middleware auth
+        $this->middleware('auth:api')->except([
+            'index', 'show'
+        ]);
     }
 
     /**

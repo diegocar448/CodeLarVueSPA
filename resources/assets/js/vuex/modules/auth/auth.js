@@ -31,7 +31,14 @@ export default{
                     .then(response => {
                         context.commit('AUTH_USER_OK', response.data.user)
 
-                        localStorage.setItem(NAME_TOKEN, response.data.token)
+                        const token = response.data.token
+
+                        localStorage.setItem(NAME_TOKEN, token)
+
+                        //Incluir o token no Header Authorization assim que for feito o login
+                        window.axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
+
                     })                    
                     .catch(error => console.log(error))
                     .finally(() => context.commit('PRELOADER', false))
