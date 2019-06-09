@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use App\User;
+use App\Http\Requests\StoreUpdateUserFormRequest;
 
 class AuthApiController extends Controller
 {
@@ -79,7 +80,7 @@ class AuthApiController extends Controller
         return response()->json(compact('token', 'user'));
     }
 
-    public function register(Request $request, User $user)
+    public function register(StoreUpdateUserFormRequest $request, User $user)
     {   
         $data = $request->only(['name', 'email', 'password']);
         $data['password'] = bcrypt($data['password']);
