@@ -6,18 +6,19 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\User;
 
 class AuthApiController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['authenticate']]);
+        $this->middleware('auth:api', ['except' => ['authenticate', 'register']]);
     }
 
-    public function authenticate(Request $request)
+    public function authenticate()
     {
         // grab credentials from the request
-        $credentials = $request->only('email', 'password');
+        $credentials = request()->only('email', 'password');
 
         try {
             // attempt to verify the credentials and create a token for the user
@@ -76,5 +77,18 @@ class AuthApiController extends Controller
         }
 
         return response()->json(compact('token', 'user'));
+    }
+
+    public function register(Request $request, User $user)
+    {   
+        $data = $request->only(['name', 'email', 'password']);
+        $data['password'] = bcrypt($data['password']);
+
+        $user::create($data);
+
+        return $this->authenticate();
+
+        
+
     }
 }
