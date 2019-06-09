@@ -40,6 +40,10 @@ export default {
 
             this.$store.dispatch('login', this.formData)
                         .then(() => this.$router.push({name: 'admin.dashboard'}))
+                        .catch(() => {
+                            this.$snotify.error('Dados inválidos', 'Falha ao acessar')
+                        })
+                        
                       
                         
         }

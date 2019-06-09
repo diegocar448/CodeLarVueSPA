@@ -40,7 +40,7 @@ export default{
 
 
                     })                    
-                    .catch(error => console.log(error))
+                    //.catch(error => {})
                     .finally(() => context.commit('PRELOADER', false))
         },
         checkLogin(context){
