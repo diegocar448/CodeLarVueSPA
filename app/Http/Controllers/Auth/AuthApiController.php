@@ -37,28 +37,18 @@ class AuthApiController extends Controller
         // all good so return the token
         return response()->json(compact('token', 'user'));
     }
+    
 
 
     public function getAuthenticatedUser()
     {
-        try {
+        $response = $this->getUser();
 
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
-                return response()->json(['user_not_found'], 404);
-            }
-
-        } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-
-            return response()->json(['token_expired'], $e->getStatusCode());
-
-        } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-
-            return response()->json(['token_invalid'], $e->getStatusCode());
-
-        } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-
-            return response()->json(['token_absent'], $e->getStatusCode());
-
+        if($response['status'] != 200)
+        {
+            return response()->json([$response['response']], $response['status']);
+        }else{
+            $user = $response['response'];
         }
 
         // the token is valid and we have found the user via the sub claim
@@ -87,9 +77,67 @@ class AuthApiController extends Controller
 
         $user::create($data);
 
-        return $this->authenticate();
+        return $this->authenticate();       
 
+    }
+
+    public function update(StoreUpdateUserFormRequest $request)
+    {
+        $response = $this->getUser();
+
+        if($response['status'] != 200)
+        {
+            return response()->json([$response['response']], $response['status']);
+        }else{
+            $user = $response['response'];
+            $user->update($request->all());
+
+            return response()->json(compact('user'));
+        }
         
+    }
 
+    public function getUser()
+    {
+        try {
+
+            if (! $user = JWTAuth::parseToken()->authenticate()) {
+                //return response()->json(['user_not_found'], 404);
+                return [
+                    'response' => 'user_not_found',
+                    'status'    => 404
+                ];
+            }
+
+        } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+
+            //return response()->json(['token_expired'], $e->getStatusCode());
+            return [
+                'response' => 'token_expired',
+                'status'    => $e->getStatusCode()
+            ];
+
+        } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+
+            //return response()->json(['token_invalid'], $e->getStatusCode());
+            return [
+                'response' => 'token_invalid',
+                'status'    => $e->getStatusCode()
+            ];
+
+        } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
+
+            //return response()->json(['token_absent'], $e->getStatusCode());
+            return [
+                'response' => 'token_absent',
+                'status'    => $e->getStatusCode()
+            ];
+
+        }
+
+        return [
+            'response' => $user,
+            'status'    => 200
+        ];
     }
 }

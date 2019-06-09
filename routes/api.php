@@ -10,6 +10,8 @@ $this->delete('categories/{id}', 'Api\CategoryController@delete');
 $this->post('auth', 'Auth\AuthApiController@authenticate');
 $this->post('auth-refresh', 'Auth\AuthApiController@refreshToken');
 $this->get('me', 'Auth\AuthApiController@getAuthenticatedUser');
+$this->post('register', 'Auth\AuthApiController@register');
+$this->put('update', 'Auth\AuthApiController@update');
 
 $this->group([
     'prefix' => 'v1',
