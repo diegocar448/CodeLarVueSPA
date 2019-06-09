@@ -24,7 +24,7 @@ const routes = [
         path: '/', 
         component:SiteComponent,
         children:[
-            {path: 'login', component:LoginComponent, name: 'login'},
+            {path: 'login', component:LoginComponent, name: 'login', meta:{auth: false}},
             {path: 'carrinho', component:CartComponent, name: 'cart'},
             {path: 'produto/:id', component:ProductDetail,  name:'product.detail', props:true},
             {path: 'contato', component:ContactComponent, name:'contact'},
@@ -55,15 +55,24 @@ const router = new VueRouter({
 //Antes de cada rota ele vai passar por esse filtro
 router.beforeEach((to, from, next) => {
     if(to.meta.auth && !store.state.auth.authenticated){
+        store.commit('CHANGE_URL_BACK', to.name)
+
         return router.push({name: 'login'})
     }
 
     //some (retorna true ou false caso encontre alguma ocorrência no array)
     //console.log(to.matched.some(record => record.meta.auth))
-    
+
     if(to.matched.some(record => record.meta.auth) && !store.state.auth.authenticated)
     {
+        store.commit('CHANGE_URL_BACK', to.name)
+
         return router.push({name: 'login'})
+    }
+
+    if(to.meta.hasOwnProperty('auth') && !to.meta.auth && store.state.auth.authenticated)
+    {   
+        return router.push({name: 'admin.dashboard'})
     }
 
     next()    
