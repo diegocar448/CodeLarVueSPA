@@ -22,10 +22,11 @@ class StoreUpdateUserFormRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
+    {        
+
         return [
             'name'      => 'required|min:3|max:100',
-            'email'     => 'required|email|max:150|unique:users',
+            'email'     => "required|email|max:150|unique:users,email,{$this->id},id",
             'password'  => 'required|min:6|max:15'
         ];
     }
