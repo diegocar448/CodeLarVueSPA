@@ -12,7 +12,7 @@
             </li>
             <li class="nav-item" v-if="me.name">
                 <router-link class="nav-link" :to="{name: 'admin.dashboard'}">
-                    Olá {{ me.name }}
+                    Olá {{ me.name }}! ( <a @click.prevent="logout">Sair</a> ) 
                 </router-link>
             </li>
             <li class="nav-item" v-else>
@@ -32,7 +32,13 @@ export default {
         me(){
             return this.$store.state.auth.me
         }
+    },
+    methods:{
+        logout(){
+            this.$store.dispatch('logout')
+        }
     }
+
 }
 </script>
 

@@ -13,6 +13,12 @@ export default{
             state.authenticated = true, 
             state.me = user
         },
+        AUTH_USER_LOGOUT(state){
+            state.me =  {},
+            state.authenticated = false,
+            state.urlBack = "home"
+
+        },
         CHANGE_URL_BACK (state, url) {
             state.urlBack = url
         }
@@ -50,6 +56,11 @@ export default{
                             .finally(() => context.commit('PRELOADER', false))
                    }                
             })
+        },
+        logout (context){
+            localStorage.removeItem(NAME_TOKEN)
+
+            context.commit('AUTH_USER_LOGOUT')
         }
     }
 }
