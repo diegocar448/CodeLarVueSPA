@@ -4,19 +4,21 @@
             <div class="col-8">
                 <div class="card">
                     <div class="card-header">
-                        Login
+                        Cadastro
                     </div>
                     <div class="card-body">
-                        <form class="form" @submit.prevent="login">
+                        <form class="form" @submit.prevent="register">
                             <div class="form-group">
-                                <input type="text" class="form-control" v-model="formData.email" placeholder="E-mail">
+                                <input type="text" class="form-control" v-model="formData.name" placeholder="Nome">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" v-model="formData.email" placeholder="E-mail">
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" v-model="formData.password" placeholder="Password">
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-success btn-block">Acessar</button>
-                                <router-link :to="{name: 'register'}">Não têm cadastro? Register</router-link>
+                                <button type="submit" class="btn btn-success btn-block">Cadastre-se</button>                                
                             </div>
                         </form>
                     </div>
@@ -26,27 +28,22 @@
     </div>
 </template>
 
+
 <script>
 export default {
     data(){
-        return{
+        return {
             formData:{
+                name:'',
                 email:'',
-                password:'',
+                password:''
             }
         }
     },
     methods:{
-        login(){           
-
-            this.$store.dispatch('login', this.formData)
+        register(){
+            this.$store.dispatch('register', this.formData)
                         .then(() => this.$router.push({name: 'admin.dashboard'}))
-                        .catch(() => {
-                            this.$snotify.error('Dados inválidos', 'Falha ao acessar')
-                        })
-                        
-                      
-                        
         }
     }
 }

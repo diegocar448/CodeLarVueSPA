@@ -7,11 +7,23 @@ $this->put('categories/{id}', 'Api\CategoryController@update');
 $this->delete('categories/{id}', 'Api\CategoryController@delete');
  */
 
-$this->post('auth', 'Auth\AuthApiController@authenticate');
-$this->post('auth-refresh', 'Auth\AuthApiController@refreshToken');
-$this->get('me', 'Auth\AuthApiController@getAuthenticatedUser');
-$this->post('register', 'Auth\AuthApiController@register');
-$this->put('update', 'Auth\AuthApiController@update');
+
+
+$this->group([   
+    'namespace' => 'Auth\Api',
+], function(){
+
+    $this->post('auth', 'AuthApiController@authenticate');
+    $this->post('auth-refresh', 'AuthApiController@refreshToken');
+    $this->get('me', 'AuthApiController@getAuthenticatedUser');
+
+    $this->post('register', 'ProfileApiController@register');
+    $this->put('update', 'ProfileApiController@update');
+
+});
+
+
+
 
 $this->group([
     'prefix' => 'v1',
