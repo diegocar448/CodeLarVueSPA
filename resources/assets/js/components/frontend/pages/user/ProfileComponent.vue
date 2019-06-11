@@ -22,7 +22,7 @@
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-success btn-block">Atualizar</button>                                
-                            </div>
+                            </div> 
                         </form>
                     </div>
                 </div>
@@ -47,11 +47,11 @@ export default {
     },
     methods:{
         updateProfile(){
-            this.$store.dispatch('register', this.formData)
+            this.$store.dispatch('update', this.formData)
                         .then(() => {
                             this.$router.push({name: 'admin.dashboard'})
 
-                            this.$snotify.success("Sucesso ao cadastra!")
+                            this.$snotify.success("Atualizado com sucesso!")
                         })
                         .catch(response =>{
                             this.errors = response.errors                       

@@ -23,7 +23,25 @@ const actions ={
                     .finally(() => context.commit('PRELOADER', false))
         })
         
+    },
+
+    update(context, params) {
+        context.commit('PRELOADER', true)
+
+        return new Promise((resolve, reject) => {
+            axios.put('/api/update', params)
+                .then(response => {
+                    context.commit('AUTH_USER_OK', response.data.user)                   
+
+                    resolve()
+                })
+                .catch(errors => reject(errors.response.data))
+                .finally(() => context.commit('PRELOADER', false))
+        })
+
     }
+
+   
 }
 
 
