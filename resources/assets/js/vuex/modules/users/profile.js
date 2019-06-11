@@ -19,7 +19,7 @@ const actions ={
 
                         resolve()                        
                     })
-                    .catch(error => console.log(error.response))
+                    .catch(errors => reject(errors.response.data))
                     .finally(() => context.commit('PRELOADER', false))
         })
         
