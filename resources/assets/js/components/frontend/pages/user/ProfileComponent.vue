@@ -8,7 +8,7 @@
                     </div>
                     <div class="card-body">
                         <form class="form" @submit.prevent="updateProfile">                            
-                            <div :class="['form-group', {'has-error': errors.name}]">
+                            <!-- <div :class="['form-group', {'has-error': errors.name}]">
                                 <div v-if="errors.name">{{ errors.name[0] }}</div>
                                 <input type="text" class="form-control" v-model="formData.name" placeholder="Nome">
                             </div>
@@ -22,7 +22,9 @@
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-success btn-block">Atualizar</button>                                
-                            </div> 
+                            </div>  -->
+
+                            <user-form :user="formData" :errors="errors"></user-form>
                         </form>
                     </div>
                 </div>
@@ -33,6 +35,8 @@
 
 
 <script>
+import UserForm from './UserForm'
+
 export default {
 
     computed:{
@@ -57,6 +61,9 @@ export default {
                             this.errors = response.errors                       
                         })
         }
+    },
+    components:{
+        UserForm: UserForm
     }
 }
 </script>
