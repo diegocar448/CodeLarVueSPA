@@ -90,6 +90,7 @@ export default {
             },
             update:false,
             upload:'',
+            errors:{}
         }
     
     },
@@ -113,7 +114,7 @@ export default {
 
             this.reset()          
 
-            this.showModal = true
+            this.showModal = true           
 
             
         },  
@@ -127,9 +128,7 @@ export default {
                             
                             this.showModal=true
 
-                            this.update = true                           
-                            
-
+                            this.update = true
                         })
                         .catch(errors => {
                             this.$snotify.error('Erro ao carregar produto', 'Erro')                            
