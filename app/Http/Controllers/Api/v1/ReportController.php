@@ -20,6 +20,23 @@ class ReportController extends Controller
            return $query->created_at->format('m');
         });
 
-        return response()->json($products);
+        $labels = [];
+        $datasets = [];
+
+        foreach($products as $product)
+        {
+            //dd($product[0]->created_at->format('m'));
+            $labels[] = "Mês {$product[0]->created_at->format('m')}";
+            $datasets[] = count($product);
+        }
+
+        
+
+        
+
+        return response()->json([
+            'labels' => $labels,
+            'datasets' => $datasets,            
+        ]);
     }
 }
