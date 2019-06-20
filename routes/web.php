@@ -1,5 +1,7 @@
 <?php
 
+$this->get('reports-products', 'Api\v1\ReportController@products');
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

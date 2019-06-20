@@ -35,4 +35,6 @@ $this->group([
     $this->apiResource('categories', 'CategoryController');
 
     $this->apiResource('products', 'ProductController');
+
+//    $this->get('reports-products', 'ReportController@products');
 });
