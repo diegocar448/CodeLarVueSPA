@@ -6,10 +6,10 @@ export default{
 
     },
     actions:{
-        reportsProducts(context){
+        reportsProducts(context, params){
             context.commit('PRELOADER',true)
 
-            return axios.get(`${URL_BASE}reports-products`)
+            return axios.get(URL_BASE+"reports-products", {params})
                         .finally(() => context.commit('PRELOADER',false))
 
         }
