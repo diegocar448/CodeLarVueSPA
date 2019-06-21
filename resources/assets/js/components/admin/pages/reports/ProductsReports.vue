@@ -20,17 +20,24 @@ export default{
         LineChart
     },
     mounted(){
-        
+        this.$store.dispatch('reportsProducts')
+                .then(response => {                        
+                        this.labels = response.data.labels
+                        this.datasets[0].data = response.data.datasets
+                    })
+                .catch(() => {
+                    this.$snotify.error('Erro ao atualizar gráficos')
+                })
     },
     data(){
         return{
-            labels:['ja','fe', 'ma'],
+            labels:[],
             datasets:[
                 {
-                    labels:'Rel mês',
+                    label:'Mês',
                     backgroundColor:"transparent",
                     boderColor: '#000',
-                    data:[3,4,5]
+                    data:[]
                 }
             ]
         }

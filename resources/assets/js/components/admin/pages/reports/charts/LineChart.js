@@ -14,11 +14,20 @@ export default {
     
   },
   mounted () {
-    this.renderChart({
-      labels: this.labels,
-      datasets: this.datasets,
-       
-      
-    }, {responsive: true, maintainAspectRatio: false})
+    this.charts()
+  },
+  methods:{
+    charts(){
+      this.renderChart({
+        labels: this.labels,
+        datasets: this.datasets,      
+      }, {responsive: true, maintainAspectRatio: false})
+    }
+  },
+  //assistir e atualizar em tempo real qualquer alteração do banco
+  watch:{
+      labels(){
+        this.charts()
+      }
   }
 }
