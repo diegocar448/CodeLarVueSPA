@@ -1,8 +1,8 @@
 <template>
     <div>
         <div v-if="notCart">
-            <button class="btn btn-info" @click.prevent="addCart">
-                Adicionar Carrinho
+            <button class="btn btn-info" @click.prevent="addCart">                
+                Add <icon name="lock"/>
             </button>        
         </div>
         <div v-else>

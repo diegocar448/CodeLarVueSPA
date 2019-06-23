@@ -11,6 +11,8 @@ import chart from './modules/charts/charts'
 
 Vue.use(Vuex)
 
+
+
 const store = new Vuex.Store({
     modules:{
         categories: Categories,
@@ -19,7 +21,8 @@ const store = new Vuex.Store({
         cart,
         auth,
         profile,
-        chart
+        chart,
+    
     }
 })
 

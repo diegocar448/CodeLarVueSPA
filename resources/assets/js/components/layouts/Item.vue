@@ -8,6 +8,7 @@
                 <img src="/imgs/no-image.jpg" class="img-list" alt="">
             </div>
             <p>{{item.name}}</p>
+            
         </router-link>
 
         <button-cart :product="item "></button-cart>

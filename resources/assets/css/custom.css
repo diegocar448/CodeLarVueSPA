@@ -1,0 +1,43 @@
+.menu {
+    background: #3aa073;
+}
+.menu ul li a {color: #ffffff;}
+.footer {
+    background: #3aa073;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.item {
+    margin: 26px 0;
+    text-align: center;
+}
+h1 {
+    margin: 22px 0;
+    font-weight: bold;
+    font: 400 3.2em Roboto;
+    text-transform: uppercase;
+}
+.item-cart {
+    margin: 10px 0;
+    border-bottom: 1px solid #efefef;
+    padding: 8px;
+}
+.container-site {padding-bottom: 60px;}
+
+
+/* Errors */
+.has-error {color: red;}
+.has-error input {border: 1px solid red;}
+
+
+/* Dashboard */
+.menu-dashboard {
+    background: #23523d;
+}
+.menu-dashboard ul li a{color: #ffffff;}
+.nav-link{color: #ffffff;}
+.img-list{max-width: 100px;}

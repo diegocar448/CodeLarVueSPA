@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="background:#00800075">
         <ul class="nav">
             <li class="nav-item">
                 <router-link class="nav-link" :to="{name: 'home'}">HOME</router-link>
