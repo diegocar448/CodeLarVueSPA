@@ -20,12 +20,12 @@ export default {
             
             axios.get('/api/v1/categories', {params})
                 .then(response => {
-                    console.log(response)
+                    //console.log(response)
 
                     context.commit('LOAD_CATEGORIES', response)
                 })
                 .catch(error => {
-                    console.log(errors)
+                    //console.log(errors)
                 })
                 .finally(() => context.commit('PRELOADER', false))
         },

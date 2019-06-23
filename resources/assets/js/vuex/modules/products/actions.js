@@ -16,12 +16,12 @@ export default {
         
         axios.get(`${URL_BASE}${RESOURCE}`, {params})
             .then(response => {                    
-                console.log(response)
+                //console.log(response)
 
                 context.commit('LOAD_PRODUCTS', response.data)
             })
             .catch(error => {
-                console.log(errors)
+                //console.log(errors)
             })
             .finally(() => context.commit('PRELOADER', false))
     },
