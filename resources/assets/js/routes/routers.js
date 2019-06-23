@@ -18,6 +18,7 @@ import CartComponent from '../components/frontend/pages/cart/CartComponent'
 import LoginComponent from '../components/frontend/pages/login/LoginComponent'
 import RegisterComponent from '../components/frontend/pages/user/RegisterComponent'
 import ProfileComponent from '../components/frontend/pages/user/ProfileComponent'
+import Error404 from '../components/frontend/pages/404/Error404'
 
 
 Vue.use(VueRouter)
@@ -34,6 +35,8 @@ const routes = [
             {path: 'produto/:id', component:ProductDetail,  name:'product.detail', props:true},
             {path: 'contato', component:ContactComponent, name:'contact'},
             {path: '', component:HomeComponent, name:'home'},
+
+            
         ]
     },
     {
@@ -51,6 +54,10 @@ const routes = [
             {path: 'products-reports', component:ProductsReports, name:'products.reports'},
         ],
     },
+
+
+    //Erro 404
+    {path: '*', component:Error404},
     
 ]
 
