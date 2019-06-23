@@ -1,6 +1,6 @@
 <?php
 
-$this->get('reports-products', 'Api\v1\ReportController@products');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,4 @@ $this->get('reports-products', 'Api\v1\ReportController@products');
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'vue.initial');
