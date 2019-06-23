@@ -46,12 +46,16 @@ class ProductController extends Controller
     {
         $data = $request->all();
 
+        
+
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $name = kebab_case($request->name);
             $extension = $request->image->extension();
-
+            
             $nameFile = "{$name}.{$extension}";
             $data['image'] = $nameFile;
+
+            //dd($this->path);
 
             $upload = $request->image->storeAs($this->path, $nameFile);
 

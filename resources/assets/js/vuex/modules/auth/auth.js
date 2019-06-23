@@ -43,8 +43,7 @@ export default{
                     //.catch(error => {})
                     .finally(() => context.commit('PRELOADER', false))
         },
-        checkLogin(context){
-            context.commit('PRELOADER', true)
+        checkLogin(context){           
 
             return new Promise((resolve, reject) => {
                 const token = localStorage.getItem(NAME_TOKEN)
@@ -52,6 +51,7 @@ export default{
                 if(!token){
                     return reject()                    
                 }else{
+                    context.commit('PRELOADER', true)
                     axios.get('/api/me')
                             .then( response => {
                                 //console.log(response.data.user)
@@ -59,7 +59,11 @@ export default{
 
                                 resolve()
                             })
-                            .catch( () => reject())
+                            .catch( () => {
+                                localStorage.removeItem(NAME_TOKEN)
+
+                                reject()
+                            })
                             .finally(() => context.commit('PRELOADER', false))
                    }                
             })

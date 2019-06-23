@@ -42,7 +42,7 @@
                 <tr v-for="(product, index) in products.data" :key="index">
                     <td>
                         <div v-if="product.image">
-                            <img :src="[`storage/products/${product.image}`]" :alt="product.name" class="img-list">
+                            <img :src="[`/storage/products/${product.image}`]" :alt="product.name" class="img-list">
                         </div>                        
                     </td>
                     <td>{{ product.name}}</td>
